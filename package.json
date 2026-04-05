@@ -1,0 +1,25 @@
+{
+  "name": "stdout",
+  "version": "1.0.0",
+  "description": "Locally-hosted web interface for printing to your local printer — exposable via cloudflared tunnel",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "NODE_ENV=test jest --forceExit"
+  },
+  "keywords": ["printing", "cups", "cloudflared", "local", "printer"],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "multer": "^2.1.1",
+    "express-rate-limit": "^7.3.1",
+    "helmet": "^7.1.0",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "nodemon": "^3.1.4"
+  }
+}
