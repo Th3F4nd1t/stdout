@@ -2,7 +2,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #f5f6fa;
+  --bg: #f0f2f8;
   --surface: #ffffff;
   --border: #dde1ea;
   --primary: #2563eb;
@@ -26,26 +26,26 @@ body {
 
 /* ─── Header ────────────────────────────────────────────────────────────────── */
 .header {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  background: var(--primary);
+  border-bottom: none;
   padding: .875rem 1.5rem;
-  box-shadow: var(--shadow);
+  box-shadow: 0 2px 8px rgba(37,99,235,.3);
 }
 
 .header-inner {
-  max-width: 760px;
+  max-width: 840px;
   margin: 0 auto;
   display: flex;
   align-items: baseline;
   gap: .75rem;
 }
 
-.logo { font-size: 1.35rem; font-weight: 700; letter-spacing: -.02em; }
-.tagline { color: var(--muted); font-size: .9rem; }
+.logo { font-size: 1.35rem; font-weight: 700; letter-spacing: -.02em; color: #fff; }
+.tagline { color: rgba(255,255,255,.75); font-size: .9rem; }
 
 /* ─── Layout ────────────────────────────────────────────────────────────────── */
 .container {
-  max-width: 760px;
+  max-width: 840px;
   margin: 2rem auto;
   padding: 0 1rem;
   display: flex;
@@ -63,11 +63,11 @@ body {
 }
 
 .card h2 {
-  font-size: 1rem;
+  font-size: .75rem;
   font-weight: 600;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: .05em;
+  letter-spacing: .07em;
   margin-bottom: 1rem;
 }
 
@@ -115,7 +115,7 @@ select:focus, input[type="number"]:focus {
   position: relative;
   border: 2px dashed var(--border);
   border-radius: var(--radius);
-  padding: 2.5rem 1.5rem;
+  padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -131,9 +131,9 @@ select:focus, input[type="number"]:focus {
   outline: none;
 }
 
-.drop-icon { font-size: 2.5rem; }
+.drop-icon { font-size: 2rem; }
 .drop-label { font-size: .95rem; color: var(--text); }
-.drop-hint { font-size: .8rem; color: var(--muted); }
+.drop-hint { font-size: .8rem; color: var(--muted); max-width: 38ch; line-height: 1.4; }
 
 .drop-zone input[type="file"] {
   position: absolute;
@@ -162,7 +162,7 @@ select:focus, input[type="number"]:focus {
 /* ─── Options grid ──────────────────────────────────────────────────────────── */
 .options-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 1rem;
 }
 
@@ -170,6 +170,13 @@ select:focus, input[type="number"]:focus {
   display: flex;
   flex-direction: column;
   gap: .35rem;
+}
+
+/* ─── Submit row ────────────────────────────────────────────────────────────── */
+.submit-row {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
 }
 
 /* ─── Buttons ───────────────────────────────────────────────────────────────── */
@@ -189,7 +196,7 @@ select:focus, input[type="number"]:focus {
 
 .btn:disabled { opacity: .45; cursor: not-allowed; }
 
-.btn-primary  { background: var(--primary); color: #fff; }
+.btn-primary  { background: var(--primary); color: #fff; width: 100%; padding: .7rem; font-size: 1rem; }
 .btn-primary:not(:disabled):hover { background: var(--primary-hover); }
 
 .btn-secondary {
@@ -262,7 +269,7 @@ select:focus, input[type="number"]:focus {
 .job-time { color: var(--muted); flex-shrink: 0; font-size: .8rem; }
 
 /* ─── Responsive ────────────────────────────────────────────────────────────── */
-@media (max-width: 480px) {
+@media (max-width: 540px) {
   .header-inner { flex-direction: column; gap: .2rem; }
   .options-grid { grid-template-columns: 1fr 1fr; }
   .field-row { flex-wrap: wrap; }
