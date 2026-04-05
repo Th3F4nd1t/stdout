@@ -91,11 +91,9 @@ router.post('/print', upload.single('file'), async (req, res) => {
     return res.status(400).json({ error: 'No file uploaded' });
   }
 
-  // Ensure the uploaded file is within the expected upload directory to prevent path traversal.
-  const filePath = path.resolve(req.file.path);
-  if (!filePath.startsWith(UPLOAD_DIR + path.sep) && filePath !== UPLOAD_DIR) {
-    return res.status(400).json({ error: 'Invalid file path' });
-  }
+  // Reconstruct the file path from UPLOAD_DIR + the basename only, preventing
+  // any path traversal that could come from req.file.path.
+  const filePath = path.join(UPLOAD_DIR, path.basename(req.file.path));
 
   const options = {
     printer: sanitizeString(req.body.printer),
