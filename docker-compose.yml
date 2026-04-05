@@ -1,0 +1,43 @@
+services:
+  # ── Print web server ────────────────────────────────────────────────────────
+  stdout:
+    build: .
+    restart: unless-stopped
+    environment:
+      PORT: "3000"
+      HOST: "0.0.0.0"
+      MAX_FILE_SIZE_MB: "50"
+      # UPLOAD_DIR defaults to /app/uploads inside the container
+    volumes:
+      - uploads:/app/uploads
+    # host networking lets lp/lpstat reach the host's CUPS daemon directly.
+    # The server is reachable from the host at http://localhost:3000.
+    # To use bridge networking instead, remove `network_mode: host` and
+    # add a ports mapping:
+    #   ports:
+    #     - "127.0.0.1:3000:3000"
+    # You will also need to configure CUPS to listen on 0.0.0.0 or provide
+    # a CUPS proxy accessible from inside the container.
+    network_mode: host
+
+  # ── Cloudflare Tunnel ───────────────────────────────────────────────────────
+  # Exposes the print server to the internet via a zero-trust cloudflared tunnel.
+  #
+  # Setup (one-time):
+  #   1. Create a tunnel:  cloudflared tunnel create stdout
+  #   2. Route traffic:    cloudflared tunnel route dns stdout print.yourdomain.com
+  #   3. Get the token:    cloudflared tunnel token stdout
+  #   4. Set TUNNEL_TOKEN in a .env file (copy .env.example → .env)
+  #
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: "${TUNNEL_TOKEN}"   # set in .env or export in shell
+    depends_on:
+      - stdout
+    network_mode: host
+
+volumes:
+  uploads:

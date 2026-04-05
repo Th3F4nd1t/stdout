@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>stdout — Print Server</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <span class="logo">🖨️ stdout</span>
+      <span class="tagline">Local Print Server</span>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Printer selector --------------------------------------------------- -->
+    <section class="card" id="printer-section">
+      <h2>Printer</h2>
+      <div class="field-row">
+        <label for="printer-select">Select printer</label>
+        <select id="printer-select" name="printer">
+          <option value="">Loading…</option>
+        </select>
+        <button id="refresh-printers" class="btn btn-secondary" title="Refresh printer list">↺</button>
+      </div>
+      <p id="no-printers-msg" class="hint hidden">
+        No printers found. Make sure CUPS is running and at least one printer is configured.
+      </p>
+    </section>
+
+    <!-- File drop zone ----------------------------------------------------- -->
+    <section class="card" id="upload-section">
+      <h2>Document</h2>
+      <div id="drop-zone" class="drop-zone" role="button" tabindex="0"
+           aria-label="Drop file here or click to choose">
+        <span class="drop-icon">📄</span>
+        <span class="drop-label">Drop file here or <u>click to choose</u></span>
+        <span class="drop-hint">PDF, JPEG, PNG, GIF, WebP, plain text, PostScript · max 50 MB</span>
+        <input type="file" id="file-input" accept=".pdf,.jpg,.jpeg,.png,.gif,.webp,.txt,.ps"
+               aria-hidden="true" tabindex="-1" />
+      </div>
+      <div id="file-info" class="file-info hidden">
+        <span id="file-name"></span>
+        <button id="clear-file" class="btn btn-link" aria-label="Remove file">✕</button>
+      </div>
+    </section>
+
+    <!-- Print options ------------------------------------------------------- -->
+    <section class="card" id="options-section">
+      <h2>Options</h2>
+      <div class="options-grid">
+        <div class="field-group">
+          <label for="copies">Copies</label>
+          <input type="number" id="copies" name="copies" min="1" max="99" value="1" />
+        </div>
+        <div class="field-group">
+          <label for="page-size">Page size</label>
+          <select id="page-size" name="pageSize">
+            <option value="">Printer default</option>
+            <option value="Letter">Letter</option>
+            <option value="Legal">Legal</option>
+            <option value="A4">A4</option>
+            <option value="A5">A5</option>
+            <option value="Tabloid">Tabloid</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="orientation">Orientation</label>
+          <select id="orientation" name="orientation">
+            <option value="">Printer default</option>
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Landscape</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="color-mode">Color</label>
+          <select id="color-mode" name="colorMode">
+            <option value="">Printer default</option>
+            <option value="color">Color</option>
+            <option value="monochrome">Monochrome</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="sides">Sides</label>
+          <select id="sides" name="sides">
+            <option value="">Printer default</option>
+            <option value="one-sided">One-sided</option>
+            <option value="two-sided-long-edge">Two-sided (long edge)</option>
+            <option value="two-sided-short-edge">Two-sided (short edge)</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Submit ------------------------------------------------------------- -->
+    <section class="card" id="submit-section">
+      <button id="print-btn" class="btn btn-primary" disabled>Print</button>
+      <div id="status-bar" class="status-bar hidden" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- Job history --------------------------------------------------------- -->
+    <section class="card" id="history-section">
+      <h2>Recent jobs</h2>
+      <ul id="job-list" class="job-list">
+        <li class="job-item placeholder">No jobs yet.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
